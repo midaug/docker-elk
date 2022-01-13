@@ -36,6 +36,7 @@ jobs:
           context: ./elasticsearch
           platforms: linux/amd64,linux/arm64
           push: true
+          build-args: ELK_VERSION=${{ github.event.inputs.elk_version }}
           tags: midaug/elasticsearch:latest,midaug/elasticsearch:${{ github.event.inputs.tag }}
       - name: Build and push kibana
         uses: docker/build-push-action@v2
@@ -43,6 +44,7 @@ jobs:
           context: ./kibana
           platforms: linux/amd64,linux/arm64
           push: true
+          build-args: ELK_VERSION=${{ github.event.inputs.elk_version }}
           tags: midaug/kibana:latest,midaug/kibana:${{ github.event.inputs.tag }}
       - name: Build and push logstash
         uses: docker/build-push-action@v2
@@ -50,4 +52,5 @@ jobs:
           context: ./logstash
           platforms: linux/amd64,linux/arm64
           push: true
+          build-args: ELK_VERSION=${{ github.event.inputs.elk_version }}
           tags: midaug/logstash:latest,midaug/logstash:${{ github.event.inputs.tag }}                    
