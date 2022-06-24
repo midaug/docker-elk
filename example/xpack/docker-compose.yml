@@ -1,12 +1,18 @@
 version: '3'
 
+volumes:
+  elasticsearch_data:         # 挂载到本地的数据卷名
+    driver_opts:
+      o: bind
+      type: none
+      device: ./elasticsearch
+
 services:
   elasticsearch:
     image: midaug/elasticsearch:7.1.1
     container_name: elasticsearch
     volumes:
-      - ./elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro
-      - ./elasticsearch/data:/usr/share/elasticsearch/data
+      - elasticsearch_data:/usr/share/elasticsearch
     ports:
       - "9200:9200"
     environment:
@@ -25,8 +31,6 @@ services:
       - elasticsearch
     networks:
       - elk
-
-
 
 networks:
   elk:
